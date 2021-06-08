@@ -1,7 +1,6 @@
 import React from 'react';
 import Library from './Library';
 import SearchPage from './SearchPage';
-// import * as BooksAPI from './BooksAPI'
 import './App.css';
 
 class BooksApp extends React.Component {
