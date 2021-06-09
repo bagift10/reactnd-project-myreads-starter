@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const SearchBar = (props) => {
-  return (
-    <div className="search-books-bar">
-      <button className="close-search" onClick={() => props.handleSearchPageClose()}>Close</button>
-      <div className="search-books-input-wrapper">
-        <input type="text" placeholder="Search by title or author"/>
+class SearchBar extends Component {
+  handleChange = (e) => {    
+    if (this.props.onSearch) {
+      this.props.onSearch(e.target.value);
+    }
+  }
 
+  render () {
+    return (
+      <div className="search-books-bar">
+        <button className="close-search" onClick={() => this.props.handleSearchPageClose()}>Close</button>
+        <div className="search-books-input-wrapper">
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="searchValue"
+              placeholder="Search by title or author"
+              onChange={(e) => this.handleChange(e)}
+            />
+          </form>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default SearchBar;

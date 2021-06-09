@@ -3,14 +3,15 @@ import React from 'react';
 const BookCard = (props) => {
   const { book, bookshelves } = props;
 
-  const authorList = book.authors.map((author) => (
-    <div
-      key={`author-${author}`}
-      className="book-authors"
-    >
-      {author}
-    </div>
-  ));
+  // TODO: Handle no author case
+  const authorList = book.authors && book.authors.map((author) => (
+      <div
+        key={`author-${author}`}
+        className="book-authors"
+      >
+        {author}
+      </div>
+    ))
 
   const bookshelfDestinations = bookshelves.map((bookshelf) => (
     <option
