@@ -17,10 +17,6 @@ class BooksApp extends React.Component {
       {
         shelf: 'read',
         title: 'Read'
-      },
-      {
-        shelf: 'none',
-        title: 'None'
       }
     ],
     showSearchPage: false

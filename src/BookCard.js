@@ -3,7 +3,6 @@ import React from 'react';
 const BookCard = (props) => {
   const { book, bookshelves } = props;
 
-  // TODO: Handle no author case
   const authorList = book.authors && book.authors.map((author) => (
       <div
         key={`author-${author}`}
@@ -30,6 +29,7 @@ const BookCard = (props) => {
           <select>
             <option value="move" disabled>Move to...</option>
             {bookshelfDestinations}
+            <option value="none">None</option>
           </select>
         </div>
       </div>
