@@ -9,24 +9,21 @@ class SearchPage extends Component {
   }
 
   handleSearch = (searchValue) => {
-    if (searchValue !== '') {
-      BooksAPI.search(searchValue)
-        .then((books) => {
-          if (books.length > 0) {
-            this.setState(() => ({
-              searchResult: books
-            }))
-          } else {
-            this.setState(() => ({
-              searchResult: []
-            }));
-          }
-        });
-    } else {
-      this.setState(() => ({
-        searchResult: []
-      }));
-    }
+    BooksAPI.search(searchValue)
+      .then((books) => {
+        if (books) {
+          books.map((book) => this.props.books.forEach((b) => {
+            if (book.id === b.id) book.shelf = b.shelf;
+          }))
+          this.setState(() => ({
+            searchResult: books
+          }));
+        } else {
+          this.setState(() => ({
+            searchResult: []
+          }));
+        }
+      });
   }
 
   render() {
@@ -41,6 +38,7 @@ class SearchPage extends Component {
             ? (<BookList
               books={this.state.searchResult}
               bookshelves={this.props.bookshelves}
+              onBookshelfMove={this.props.onBookshelfMove}
             />)
             : <h1>No results found!</h1>}
         </div>

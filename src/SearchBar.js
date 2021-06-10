@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
 class SearchBar extends Component {
-  handleChange = (e) => {    
-    if (this.props.onSearch) {
-      this.props.onSearch(e.target.value);
-    }
+  handleChange = (e) => {
+    this.props.onSearch(e.target.value);
   }
 
   render () {

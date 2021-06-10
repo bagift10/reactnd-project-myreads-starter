@@ -1,45 +1,32 @@
-import React, { Component } from 'react';
-import * as BooksAPI from './BooksAPI'
+import React from 'react';
 import BookShelf from './BookShelf';
 
-class Library extends Component {
-  state = {
-    books: []
-  }
+const Library = (props) => {
 
-  componentDidMount = () => {
-    BooksAPI.getAll().then((books) => {
-      this.setState(() => ({
-        books
-      }));
-    });
-  }
+  const bookshelfList = props.bookshelves.map((bookshelf) => (
+    <BookShelf
+      key={`bookshelf-${bookshelf.shelf}`}
+      title={bookshelf.title}
+      books={props.books.filter((book) => book.shelf === bookshelf.shelf)}
+      bookshelves={props.bookshelves}
+      onBookshelfMove={props.onBookshelfMove}
+    />
+  ));
 
-  render() {
-    const bookshelfList = this.props.bookshelves.map((bookshelf) => (
-      <BookShelf
-        key={`bookshelf-${bookshelf.shelf}`}
-        title={bookshelf.title}
-        books={this.state.books.filter((book) => book.shelf === bookshelf.shelf)}
-        bookshelves={this.props.bookshelves}
-      />
-    ));
-
-    return (
-      <div>
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            <div>
-              {bookshelfList}
-            </div>
+  return (
+    <div>
+      <div className="list-books">
+        <div className="list-books-title">
+          <h1>MyReads</h1>
+        </div>
+        <div className="list-books-content">
+          <div>
+            {bookshelfList}
           </div>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Library;

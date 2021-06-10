@@ -10,6 +10,7 @@ const BookShelf = (props) => {
         <BookList
           books={books}
           bookshelves={bookshelves}
+          onBookshelfMove={props.onBookshelfMove}
         />
       </div>
     </div>

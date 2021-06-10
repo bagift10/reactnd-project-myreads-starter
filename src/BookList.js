@@ -7,6 +7,8 @@ const BookList = (props) => {
       <BookCard
         book={book}
         bookshelves={props.bookshelves}
+        index={idx}
+        onBookshelfMove={props.onBookshelfMove}
       />
     </li>
   ));
