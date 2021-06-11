@@ -9,21 +9,27 @@ class SearchPage extends Component {
   }
 
   handleSearch = (searchValue) => {
-    BooksAPI.search(searchValue)
-      .then((books) => {
-        if (books) {
-          books.map((book) => this.props.books.forEach((b) => {
-            if (book.id === b.id) book.shelf = b.shelf;
-          }))
-          this.setState(() => ({
-            searchResult: books
-          }));
-        } else {
-          this.setState(() => ({
-            searchResult: []
-          }));
-        }
-      });
+    if (searchValue !== '') {
+      BooksAPI.search(searchValue)
+        .then((books) => {
+          if (books && !books.error) {
+            books.map((book) => this.props.books.forEach((b) => {
+              if (book.id === b.id) book.shelf = b.shelf;
+            }))
+            this.setState(() => ({
+              searchResult: books
+            }));
+          } else {
+            this.setState(() => ({
+              searchResult: []
+            }));
+          }
+        });
+    } else {
+      this.setState(() => ({
+        searchResult: []
+      }));
+    }
   }
 
   render() {
