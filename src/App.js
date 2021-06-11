@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
 import Library from './Library';
 import SearchPage from './SearchPage';
@@ -20,7 +21,6 @@ class BooksApp extends React.Component {
         title: 'Read'
       }
     ],
-    showSearchPage: false,
     books: []
   }
 
@@ -54,25 +54,36 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchPage
-            books={this.state.books}
-            bookshelves={this.state.bookshelves}
-            handleSearchPageClose={() => this.setState({showSearchPage: false})}
-            onBookshelfMove={this.handleBookshelfMove}
-          />
-        ) : (
-          <div>
-            <Library
+        <Route
+          path='/search'
+          render={({ history }) => (
+            <SearchPage
               books={this.state.books}
               bookshelves={this.state.bookshelves}
+              handleSearchPageClose={() => history.push('/search')}
               onBookshelfMove={this.handleBookshelfMove}
             />
-            <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+          )}
+        />
+        <Route
+          exact
+          path='/'
+          render={({ history }) => (
+            <div>
+              <Library
+                books={this.state.books}
+                bookshelves={this.state.bookshelves}
+                onBookshelfMove={this.handleBookshelfMove}
+              />
+              <Link
+                className="open-search"
+                to='/search'
+              >
+                <button onClick={() => history.push('/')}>Add a book</button>
+              </Link>
             </div>
-          </div>
-        )}
+          )}
+        />
       </div>
     )
   }
